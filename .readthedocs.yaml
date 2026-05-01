@@ -1,0 +1,15 @@
+version: 2
+
+build:
+  os: ubuntu-lts-latest
+  tools:
+    python: "3.12"
+  jobs:
+    install:
+      - pip install --upgrade pip
+      - pip install --group doc .
+    build:
+      html:
+        - mkdir -p ${READTHEDOCS_OUTPUT}/html
+        - pdoc --output-directory ${READTHEDOCS_OUTPUT}/html
+          --no-include-undocumented --docformat markdown --search zarr_reshape
