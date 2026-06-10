@@ -12,7 +12,7 @@ pip install zarr-reshape
 
 ```python
 import zarr
-import zarr-reshape  # Registers the codec
+import zarr_reshape  # Registers the codec
 
 # Create an array with the reshape codec
 # This reshapes chunks from (100, 50, 64, 3) to (5000, 64, 3)
