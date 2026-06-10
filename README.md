@@ -21,9 +21,8 @@ arr = zarr.create_array(
     shape=(1000, 500, 64, 3),
     chunks=(100, 50, 64, 3),
     dtype="float32",
-    codecs=[
-        {"name": "reshape", "configuration": {"shape": [[0, 1], [2], 3]}},
-        {"name": "bytes", "configuration": {"endian": "little"}},
+    filters=[
+        zarr_reshape.ReshapeCodec(shape=[[0, 1], [2], 3])
     ],
 )
 ```

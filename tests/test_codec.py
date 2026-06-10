@@ -66,3 +66,30 @@ async def test_decode():
     assert encoded is not None
     assert encoded.shape == (3, 4, 5)
     assert np.all(np.equal(np.ravel(encoded.as_numpy_array()), arr_flat))
+
+@pytest.mark.asyncio
+async def test_example():
+    import json
+
+    import zarr
+    from zarr.storage import ManagedMemoryStore
+    import zarr_reshape  # Registers the codec
+
+    # Create an array with the reshape codec
+    # This reshapes chunks from (100, 50, 64, 3) to (5000, 64, 3)
+    store = ManagedMemoryStore()
+    _ = zarr.create_array(
+        store,
+        shape=(1000, 500, 64, 3),
+        chunks=(100, 50, 64, 3),
+        dtype="float32",
+        filters=[zarr_reshape.ReshapeCodec(shape=[[0, 1], [2], 3])],
+    )
+    b = await store.get("zarr.json")
+    assert b is not None
+    s = b.to_bytes().decode("utf-8")
+    d = json.loads(s)
+    assert d["codecs"][0] == {
+        "name": "reshape",
+        "configuration": {"shape": [[0, 1], [2], 3]},
+    }
