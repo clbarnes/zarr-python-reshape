@@ -5,14 +5,14 @@ A reshape codec for zarr-python implementing the [Zarr reshape codec extension](
 ## Installation
 
 ```bash
-pip install zarr-python-reshape
+pip install zarr-reshape
 ```
 
 ## Usage
 
 ```python
 import zarr
-import zarr_python_reshape  # Registers the codec
+import zarr-reshape  # Registers the codec
 
 # Create an array with the reshape codec
 # This reshapes chunks from (100, 50, 64, 3) to (5000, 64, 3)
