@@ -67,6 +67,7 @@ async def test_decode():
     assert encoded.shape == (3, 4, 5)
     assert np.all(np.equal(np.ravel(encoded.as_numpy_array()), arr_flat))
 
+
 @pytest.mark.asyncio
 async def test_example():
     import json
