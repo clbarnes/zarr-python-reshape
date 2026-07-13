@@ -1,6 +1,6 @@
 # zarr-python-reshape
 
-A reshape codec for zarr-python implementing the [Zarr reshape codec extension](https://github.com/jbms/zarr-extensions/tree/reshape-codec/codecs/reshape).
+A reshape codec for zarr-python implementing the [Zarr reshape codec extension](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/reshape).
 
 ## Installation
 
