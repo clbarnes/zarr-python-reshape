@@ -13,8 +13,6 @@ if TYPE_CHECKING:
     from typing import Self
 
     from zarr.core.buffer import NDBuffer
-    from zarr.core.dtype.wrapper import TBaseDType, TBaseScalar, ZDType
-    from zarr.core.metadata.v3 import ChunkGridMetadata
 
 
 # Type for shape specification: int, list of ints, or -1
@@ -200,20 +198,6 @@ class ReshapeCodec(ArrayArrayCodec):
 
     def to_dict(self) -> dict[str, JSON]:
         return {"name": "reshape", "configuration": {"shape": self.shape}}
-
-    def validate(
-        self,
-        shape: tuple[int, ...],
-        dtype: ZDType[TBaseDType, TBaseScalar],
-        chunk_grid: ChunkGridMetadata,
-    ) -> None:
-        """Validate the codec configuration against the array metadata."""
-        _compute_output_shape(self.shape, shape)
-
-    def evolve_from_array_spec(self, array_spec: ArraySpec) -> Self:
-        """Evolve the codec from an array specification."""
-        _compute_output_shape(self.shape, array_spec.shape)
-        return self
 
     def resolve_metadata(self, chunk_spec: ArraySpec) -> ArraySpec:
         """Resolve the output metadata after applying this codec."""
